@@ -184,6 +184,8 @@ function productStore(getIcons,localName,showIcons){
                     getTotalFavIcon.innerText = favCollectArr.length;
                 })
             }
+            
+            
            
         })
     })

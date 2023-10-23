@@ -270,9 +270,9 @@ getCartDeleteBtns.forEach(function(getCartDeleteBtn){
 
 
 
-document.querySelector("#update_cart").addEventListener("click",function(){
-    updateCart();
-})
+// document.querySelector("#update_cart").addEventListener("click",function(){
+//     updateCart();
+// })
 // end update cart btn
 
 // start update cart function
@@ -287,11 +287,34 @@ function updateCart(){
         
     })
     getTotalShow.innerText = `$ ${totalAmount}.00`;
+    document.querySelector(".card_sub_total").innerText= `$ ${totalAmount}.00`;
+    document.querySelector(".card_total").innerText= `$ ${totalAmount}.00`;
+    
 
     updateStorage("ogani_cart_product");
+
+    return totalAmount;
 }
 
 // end update cart function
+
+// start insert Coupon
+document.querySelector("#get_coupon").addEventListener("click",function(){
+    let getCouponCode = document.querySelector("#dis_code").value;
+
+    if(getCouponCode){
+        console.log(true);
+        let getTotalAmount = updateCart();
+        console.log(getTotalAmount);
+        let getDisPer = 10;
+        let getDisPrice = getTotalAmount - (getTotalAmount/100*getDisPer);
+
+        document.querySelector(".card_sub_total").innerText= `$ ${getTotalAmount}.00 - ${getDisPer} % `
+        document.querySelector(".card_total").innerText = `$ ${getDisPrice}.00`;
+    }
+    
+})
+// end insert Coupon
 
 // start url filter function
 function urlFilter(url){
