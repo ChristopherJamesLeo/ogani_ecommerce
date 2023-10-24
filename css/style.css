@@ -693,10 +693,10 @@ header .shop_cout span{
 .order_summary_container table tr td,.order_summary_container table tr th {
     background-color: transparent;
 }
-.payment_method , .payment_preview ,.payment_confirm {
+.payment_method  ,.payment_confirm {
     display: none;
 }
-.payment_method.active,.payment_preview.active ,.payment_confirm.active {
+.payment_method.active ,.payment_confirm.active {
     display: block;
 }
 /* end check out section */

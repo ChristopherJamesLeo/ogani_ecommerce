@@ -303,9 +303,9 @@ document.querySelector("#get_coupon").addEventListener("click",function(){
     let getCouponCode = document.querySelector("#dis_code").value;
 
     if(getCouponCode){
-        console.log(true);
+        localStorage.setItem("ogani_coupon",getCouponCode);
         let getTotalAmount = updateCart();
-        console.log(getTotalAmount);
+        // console.log(getTotalAmount);
         let getDisPer = 10;
         let getDisPrice = getTotalAmount - (getTotalAmount/100*getDisPer);
 

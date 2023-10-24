@@ -395,7 +395,7 @@
                                             <th class="text-end ">Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="">
+                                    <tbody class="checkout_list_body">
                                         <tr class="">
                                             <td class="text-start text-muted">Vegetable’s Package</td>
                                             <td class="text-end fw-bold product_price">$75.00</td>
@@ -412,18 +412,14 @@
                                     <tfoot>
                                         <tr class=" fw-bold h5">
                                             <td class="py-3 text-start">Subtotal</td>
-                                            <td class="py-3 text-end">$750.99</td>
+                                            <td class="py-3 text-end checkout_subtotal">$750.99</td>
                                         </tr>
                                         <tr class="fw-bold h5">
                                             <td class="py-3 text-start">Total</td>
-                                            <td class="py-3 text-end" style="color: var(--global-red-color);">$750.99</td>
+                                            <td class="py-3 text-end checkout_total" style="color: var(--global-red-color);">$750.99</td>
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <div class="col-12 mb-3">
-                                    <input type="checkbox" name="cre_acc" id="cre_acc" value="create">
-                                    <label for="cre_acc" class="ms-3">Create an account?</label>
-                                </div>
                                 <div class="global_para">
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -459,10 +455,11 @@
                                 </div>
                                 <!-- end payment method -->
                                 <!-- payment confirm -->
-                                <div class="my-3">
-                                    <input type="file" name="payment_confirm" id="payment_confirm" class="form-control rounded-0 border-0 shadow-none outline-non payment_confirm">
+                                <div class="my-3 payment_confirm">
+                                    <label for="payment_confirm" class="mb-3">Insert Payment Slip</label>
+                                    <input type="file" name="payment_confirm" id="payment_confirm" class="form-control rounded-0 border-0 shadow-none outline-non ">
                                     <div class="px-4 mt-3 payment_preview" >
-                                        <img src="" width="100%" height="100%" alt="">
+                                        <img width="100%"  alt="">
                                     </div>
                                 </div>
                                 
@@ -632,6 +629,8 @@
 
     <!-- custom js -->
     <script src="./js/checkout.js"></script>
+
+    
 
 </body>
 </html>

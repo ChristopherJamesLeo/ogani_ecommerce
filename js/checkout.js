@@ -62,3 +62,90 @@ showLocalCount(getTotalFavIcons,getFavProducts,"ogani_fav_product");
 showLocalCount(getTotalCartIcons,getCartProducts,"ogani_cart_product");
 
 // end product count
+
+// start check out box
+document.querySelector(".checkout_list_body").innerHTML = " ";
+let getTotal = 0;
+getCartProducts.forEach(function(getCartProduct){
+    let getProductId = getCartProduct.id;
+    let getProudctImg = getCartProduct.img;
+    let getProductName = getCartProduct.name;
+    let getProductPrice = getCartProduct.price;
+    let getProductQuantity = getCartProduct.quantity;
+
+    let result  = getProductQuantity * getProductPrice ;
+
+    getTotal += result;
+
+    let getTrTag = `<tr class="">
+                        <td id=${getProductId} class="text-start text-muted">${getProductName}</td>
+                        <td class="text-end fw-bold product_price">$${result}</td>
+                    </tr>`;
+    document.querySelector(".checkout_list_body").innerHTML += getTrTag;
+})
+
+
+let getCheckOutSubTotal = document.querySelector(".checkout_subtotal")
+let getCheckOutTotal = document.querySelector(".checkout_total")
+
+if(localStorage.getItem("ogani_coupon") != null){
+    let getDisPer = 10;
+    let getDisPrice = getTotal - (getTotal/100*getDisPer);
+
+    getCheckOutSubTotal.innerHTML= `$ ${getTotal}.00 - <small class="h6">${getDisPer}%</small>  `
+    getCheckOutTotal.innerText = `$ ${getDisPrice}.00`;
+}else {
+    getCheckOutSubTotal.innerText = `$ ${getTotal}.00`;
+    getCheckOutTotal.innerText = `$ ${getTotal}.00`;
+}
+
+// end check out box
+
+// start payment system
+let getPayMethods = document.querySelectorAll(".payment");
+let getPayMethodCodes =document.querySelectorAll(".payment_method");
+
+// console.log(getPayMethods);
+
+getPayMethods.forEach(function(getPayMethod,idx){
+    getPayMethod.setAttribute("show-qr",idx);
+
+    getPayMethod.addEventListener("click",function(){
+        // console.log(this.getAttribute("show-qr"));
+        showQr(this.getAttribute("show-qr"));
+
+        document.querySelector(".payment_confirm").classList.add("active");
+
+    })
+
+})
+
+function showQr(idx){
+    getPayMethodCodes.forEach(function(getPayMethodCode){
+        getPayMethodCode.classList.remove("active");
+    })
+    getPayMethodCodes[idx].classList.add("active");
+}
+
+let PreviewPaySlipBox = document.querySelector(".payment_preview img");
+
+let getAcceptPaySlipBox = document.querySelector("#payment_confirm");
+
+let getSubmitBtn = document.querySelector(".order_submit_btn");
+
+console.log(getAcceptPaySlipBox);
+
+
+getAcceptPaySlipBox.addEventListener("change",function(){
+
+    var reader = new FileReader();
+    reader.onload = function(e){
+        // console.log(e.target.result);
+        PreviewPaySlipBox.setAttribute("src",e.target.result); 
+    }
+    reader.readAsDataURL(this.files[0]); 
+
+    getSubmitBtn.disabled = false;
+
+})
+// end payment system
