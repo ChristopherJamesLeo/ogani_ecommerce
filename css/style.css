@@ -664,3 +664,39 @@ header .shop_cout span{
     background-color: #f5f5f5;
 }
 /* end cart page */
+
+/* check out section */
+.check_coupon {
+    background-color: #f5f5f5;
+    border-top: 1px solid var(--global-green-color);
+}
+.check_coupon span {
+    color: var(--global-date-color);
+    font-weight: 300;
+}
+.checkout_form_main_container form .form-control:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid var(--global-green-color);
+}
+.checkout_form_main_container form .form-control::placeholder {
+    color: var(--global-brown-color);
+}
+.checkout_form_main_container form label::after{
+    content: "*";
+    color: var(--global-red-color);
+}
+
+.order_summary_container {
+    background-color: #f5f5f5;
+}
+.order_summary_container table tr td,.order_summary_container table tr th {
+    background-color: transparent;
+}
+.payment_method , .payment_preview ,.payment_confirm {
+    display: none;
+}
+.payment_method.active,.payment_preview.active ,.payment_confirm.active {
+    display: block;
+}
+/* end check out section */
