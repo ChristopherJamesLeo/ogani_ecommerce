@@ -155,7 +155,7 @@ function productStore(getIcons,localName,showIcons){
                 let getImg = dropCloseCote;
                 let productId = this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].id;
                 let productName = this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].innerText;
-                let productPrice = this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.querySelector(".product_price").innerText;
+                let productPrice = this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.querySelector(".product_price").innerText.replace("$","");
                 console.log(productPrice);
                 
         

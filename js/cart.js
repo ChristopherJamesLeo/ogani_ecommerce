@@ -297,6 +297,28 @@ function updateCart(){
 }
 
 // end update cart function
+function localStoreTotal(){
+    let totalAmount = 0 ;
+    getCartProducts.forEach(function(getCartProduct){
+
+        // let getProductId = getCartProduct.id;
+        // let getProductName = getCartProduct.name;
+        let getProductPrice = Number(getCartProduct.price);
+        let getProductQuantity = Number(getCartProduct.quantity);
+    
+        // console.log(typeof(getProductPrice,getProductQuantity));
+    
+        let result  = Number(getProductQuantity * getProductPrice) ;
+    
+        totalAmount += result;
+    })
+    
+    getTotalShow.innerText = `$ ${totalAmount}.00`;
+    document.querySelector(".card_sub_total").innerText= `$ ${totalAmount}.00`;
+    document.querySelector(".card_total").innerText= `$ ${totalAmount}.00`;
+}
+localStoreTotal();
+
 
 // start insert Coupon
 document.querySelector("#get_coupon").addEventListener("click",function(){

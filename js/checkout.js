@@ -68,12 +68,13 @@ document.querySelector(".checkout_list_body").innerHTML = " ";
 let getTotal = 0;
 getCartProducts.forEach(function(getCartProduct){
     let getProductId = getCartProduct.id;
-    let getProudctImg = getCartProduct.img;
     let getProductName = getCartProduct.name;
-    let getProductPrice = getCartProduct.price;
-    let getProductQuantity = getCartProduct.quantity;
+    let getProductPrice = Number(getCartProduct.price);
+    let getProductQuantity = Number(getCartProduct.quantity);
 
-    let result  = getProductQuantity * getProductPrice ;
+    // console.log(typeof(getProductPrice,getProductQuantity));
+
+    let result  = Number(getProductQuantity * getProductPrice) ;
 
     getTotal += result;
 
@@ -107,6 +108,16 @@ let getPayMethodCodes =document.querySelectorAll(".payment_method");
 
 // console.log(getPayMethods);
 
+if(localStorage.getItem("ogani_cart_product") !== null){
+    getPayMethods.forEach(function(getPayMethod){
+        getPayMethod.style.display = "block";
+    })
+}else {
+    getPayMethods.forEach(function(getPayMethod){
+        getPayMethod.style.display = "none";
+    })
+}
+
 getPayMethods.forEach(function(getPayMethod,idx){
     getPayMethod.setAttribute("show-qr",idx);
 
@@ -133,7 +144,7 @@ let getAcceptPaySlipBox = document.querySelector("#payment_confirm");
 
 let getSubmitBtn = document.querySelector(".order_submit_btn");
 
-console.log(getAcceptPaySlipBox);
+// console.log(getAcceptPaySlipBox);
 
 
 getAcceptPaySlipBox.addEventListener("change",function(){
@@ -147,5 +158,11 @@ getAcceptPaySlipBox.addEventListener("change",function(){
 
     getSubmitBtn.disabled = false;
 
+})
+
+getSubmitBtn.addEventListener("click",function(e){
+    e.preventDefault();
+    localStorage.removeItem("ogani_cart_product");
+    document.querySelector(".order_submit_form").submit();
 })
 // end payment system
