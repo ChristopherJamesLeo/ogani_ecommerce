@@ -44,9 +44,11 @@ let getTotalFavIcons = document.querySelectorAll(".fav_product");
 let getTotalCartIcons = document.querySelectorAll(".cart_product");
 
 
-
 let getFavProducts = JSON.parse(localStorage.getItem("ogani_fav_product"));
 let getCartProducts = JSON.parse(localStorage.getItem("ogani_cart_product"));
+
+
+
 
 function showLocalCount(showicons,localArr,localName){
     if( localStorage.getItem(localName) !== null){
@@ -64,20 +66,28 @@ showLocalCount(getTotalFavIcons,getFavProducts,"ogani_fav_product");
 showLocalCount(getTotalCartIcons,getCartProducts,"ogani_cart_product");
 
 let totalItems = 0 ;
-getCartProducts.forEach(function(getCartProduct){
-    // console.log(getCartProduct.price)
-    let getTotal = +getCartProduct.price * +getCartProduct.quantity;
 
-    totalItems += getTotal;
-})
+
+if( localStorage.getItem("ogani_cart_product") !==null){
+    getCartProducts.forEach(function(getCartProduct){
+        // console.log(getCartProduct.price)
+        let getTotal = +getCartProduct.price * +getCartProduct.quantity;
+    
+        totalItems += getTotal;
+    })
+
+    let showTotalItems = document.querySelectorAll(".total_items");
+    showTotalItems.forEach(function(showTotalItem){
+    showTotalItem.innerHTML = " ";
+    showTotalItem.innerText = `$ ${totalItems}.00`;
+    })
+}
+
+
 
 // console.log(totalItems);
 
-let showTotalItems = document.querySelectorAll(".total_items");
-showTotalItems.forEach(function(showTotalItem){
-    showTotalItem.innerHTML = " ";
-    showTotalItem.innerText = `$ ${totalItems}.00`;
-})
+
 
 // end product store
 
@@ -90,54 +100,56 @@ let getFavItems = JSON.parse(localStorage.getItem("ogani_fav_product"));
 
 
 
-
-getFavItems.forEach(function(getCartStore){
-    let getTrTag = `<tr class="product_datas">
-    <td class="product_img_data">
-        <div class=" d-flex align-items-center">
-            <div class="me-5 product_img cart_product_img" id="${getCartStore.id}" style="background-image: url('./assets/imgs/products/${getCartStore.img}');"></div>
-            <span class="product_name cart_product_name">${getCartStore.name}</span>
-        </div>
-    </td>
-    <td class=" ">
-        <div class=" d-flex justify-content-center align-items-center product_infos ">
-            <span class="fw-bold ">$<span class="product_price cart_product_price">${getCartStore.price.replace("$","")}</span></span>
-        </div>
-        
-    </td>
-    <td>
-        <div class="d-flex justify-content-center align-items-center gap-2 product_infos">
-            <div class="product_count_btn">
-                <button type="button" class="dec_qty_btn border-0 shadow-none outline-none rounded-0">
-                    <i class="fas fa-minus"></i>
-                </button>
-
-                <input type="text" name="p_quenty" id="p_quenty" value="${getCartStore.quantity}" class="text-center border-0 shadow-none outline-none rounded-0 p_quenty cart_product_quantity">
-
-                <button type="button" class="inc_qty_btn border-0 shadow-none outline-none rounded-0">
-                    <i class="fas fa-plus"></i>
-                </button>
+if(localStorage.getItem("ogani_fav_product") !== null || localStorage.getItem("ogani_cart_product") !== null){
+    getFavItems.forEach(function(getCartStore){
+        let getTrTag = `<tr class="product_datas">
+        <td class="product_img_data">
+            <div class=" d-flex align-items-center">
+                <div class="me-5 product_img cart_product_img" id="${getCartStore.id}" style="background-image: url('./assets/imgs/products/${getCartStore.img}');"></div>
+                <span class="product_name cart_product_name">${getCartStore.name}</span>
+            </div>
+        </td>
+        <td class=" ">
+            <div class=" d-flex justify-content-center align-items-center product_infos ">
+                <span class="fw-bold ">$<span class="product_price cart_product_price">${getCartStore.price.replace("$","")}</span></span>
             </div>
             
-        </div>
-    </td>
-    <td>
-        <div class="d-flex justify-content-center align-items-center product_infos">
-            $<span class="total_amount">${getCartStore.price.replace("$","")}</span>
-        </div>
-    </td>
-    <td >
-        <div class="d-flex justify-content-center align-items-center product_infos">
-            <a href="javascript:void(0)" class="px-3 nav-link rounded-circle product_cart_icon"><i class="fas fa-shopping-cart"></i></a>
-            <a href="javascript:void(0)" class="nav-link cart_delete_btn"><i class="fas fa-times"></i></a>
-        </div>
-    </td>
-</tr>`;
-// console.log(getTrTag);
+        </td>
+        <td>
+            <div class="d-flex justify-content-center align-items-center gap-2 product_infos">
+                <div class="product_count_btn">
+                    <button type="button" class="dec_qty_btn border-0 shadow-none outline-none rounded-0">
+                        <i class="fas fa-minus"></i>
+                    </button>
+    
+                    <input type="text" name="p_quenty" id="p_quenty" value="${getCartStore.quantity}" class="text-center border-0 shadow-none outline-none rounded-0 p_quenty cart_product_quantity">
+    
+                    <button type="button" class="inc_qty_btn border-0 shadow-none outline-none rounded-0">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                
+            </div>
+        </td>
+        <td>
+            <div class="d-flex justify-content-center align-items-center product_infos">
+                $<span class="total_amount">${getCartStore.price.replace("$","")}</span>
+            </div>
+        </td>
+        <td >
+            <div class="d-flex justify-content-center align-items-center product_infos">
+                <a href="javascript:void(0)" class="px-3 nav-link rounded-circle product_cart_icon"><i class="fas fa-shopping-cart"></i></a>
+                <a href="javascript:void(0)" class="nav-link cart_delete_btn"><i class="fas fa-times"></i></a>
+            </div>
+        </td>
+    </tr>`;
+    // console.log(getTrTag);
+    
+        document.querySelector(".fav_table_body").innerHTML += getTrTag;
+    
+    })
+}
 
-    document.querySelector(".fav_table_body").innerHTML += getTrTag;
-
-})
 
 // end cart product show
 
@@ -244,18 +256,24 @@ getCartDeleteBtns.forEach(function(getCartDeleteBtn){
 // start add cart 
 let getAddCartBtns = document.querySelectorAll(".product_infos .product_cart_icon");
 
-let getCartStores = JSON.parse(localStorage.getItem("ogani_cart_product"));
+let getCartStores ;
+
+if(localStorage.getItem("ogani_cart_product") == null){
+    getCartStores = [];
+}else {
+    getCartStores = JSON.parse(localStorage.getItem("ogani_cart_product"));
+}
 
 getAddCartBtns.forEach(function(getAddCartBtn){
     getAddCartBtn.addEventListener("click",function(){
-        console.log(this);
+        // console.log(this);
         let getImgUrl = this.parentElement.parentElement.parentElement.querySelector(".cart_product_img").style.backgroundImage;
         let getImg = urlFilter(getImgUrl);
         let getProductId = this.parentElement.parentElement.parentElement.querySelector(".cart_product_img").id;
         let getProductName = this.parentElement.parentElement.parentElement.querySelector(".product_name").innerText;
         let getProductPrice = this.parentElement.parentElement.parentElement.querySelector(".product_price").innerText;
         let getProductQuentity = this.parentElement.parentElement.parentElement.querySelector(".p_quenty").value;
-        console.log(getProductQuentity);
+        // console.log(getProductQuentity);
         
         let stroeCartObj = {
             id : getProductId,
