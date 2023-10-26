@@ -39,8 +39,10 @@ window.onclick = function(e){
 
 // start product store 
 
+
 let getTotalFavIcons = document.querySelectorAll(".fav_product");
 let getTotalCartIcons = document.querySelectorAll(".cart_product");
+
 
 
 let getFavProducts = JSON.parse(localStorage.getItem("ogani_fav_product"));
@@ -67,12 +69,13 @@ showLocalCount(getTotalCartIcons,getCartProducts,"ogani_cart_product");
 
 // start cart product show
 
-let getCartStores = JSON.parse(localStorage.getItem("ogani_cart_product"));
-// console.log(getCartStores);
+let getFavItems = JSON.parse(localStorage.getItem("ogani_fav_product"));
 
 
 
-getCartStores.forEach(function(getCartStore){
+
+
+getFavItems.forEach(function(getCartStore){
     let getTrTag = `<tr class="product_datas">
     <td class="product_img_data">
         <div class=" d-flex align-items-center">
@@ -109,18 +112,20 @@ getCartStores.forEach(function(getCartStore){
     </td>
     <td >
         <div class="d-flex justify-content-center align-items-center product_infos">
+            <a href="javascript:void(0)" class="px-3 nav-link rounded-circle product_cart_icon"><i class="fas fa-shopping-cart"></i></a>
             <a href="javascript:void(0)" class="nav-link cart_delete_btn"><i class="fas fa-times"></i></a>
         </div>
     </td>
 </tr>`;
 // console.log(getTrTag);
 
-    document.querySelector(".cart_table_body").innerHTML += getTrTag;
-
+    document.querySelector(".fav_table_body").innerHTML += getTrTag;
 
 })
 
 // end cart product show
+
+
 
 
 // start product cart calculate
@@ -180,8 +185,6 @@ getDecBtns.forEach(function(getDecBtn){
 
 let getTotalShow = document.querySelector("#product_amount");
 
-
-
 updateCart();
 
 let getPrices  = document.querySelectorAll(".product_price");
@@ -204,6 +207,8 @@ getInputs.forEach(function(getInput,idx){
 
 // edn product cart calculate
 
+
+
 // start cart delete 
 let getCartDeleteBtns = document.querySelectorAll(".cart_delete_btn");
 
@@ -211,8 +216,7 @@ getCartDeleteBtns.forEach(function(getCartDeleteBtn){
     getCartDeleteBtn.addEventListener("click",function(){
         this.parentElement.parentElement.parentElement.remove();
 
-        updateStorage("ogani_cart_product");
-
+        updateStorage("ogani_fav_product");
         updateCart();
     })
 
@@ -221,11 +225,78 @@ getCartDeleteBtns.forEach(function(getCartDeleteBtn){
 
 // start update cart btn
 
+// start add cart 
+let getAddCartBtns = document.querySelectorAll(".product_infos .product_cart_icon");
+
+let getCartStores = JSON.parse(localStorage.getItem("ogani_cart_product"));
+
+getAddCartBtns.forEach(function(getAddCartBtn){
+    getAddCartBtn.addEventListener("click",function(){
+        console.log(this);
+        let getImgUrl = this.parentElement.parentElement.parentElement.querySelector(".cart_product_img").style.backgroundImage;
+        let getImg = urlFilter(getImgUrl);
+        let getProductId = this.parentElement.parentElement.parentElement.querySelector(".cart_product_img").id;
+        let getProductName = this.parentElement.parentElement.parentElement.querySelector(".product_name").innerText;
+        let getProductPrice = this.parentElement.parentElement.parentElement.querySelector(".product_price").innerText;
+        let getProductQuentity = this.parentElement.parentElement.parentElement.querySelector(".p_quenty").value;
+        console.log(getProductQuentity);
+        
+        let stroeCartObj = {
+            id : getProductId,
+            img : getImg,
+            name : getProductName,
+            price : getProductPrice,
+            quantity : getProductQuentity
+        }
+
+        getCartStores.push(stroeCartObj);
+        // console.log(getCartStores);
+        localStorage.setItem("ogani_cart_product",JSON.stringify(getCartStores));
+
+        this.parentElement.parentElement.parentElement.remove();
+        // console.log(getTrTag);
+
+        updateStorage("ogani_fav_product");
+
+        
+    })
+})
+// end add cart 
 
 
-// document.querySelector("#update_cart").addEventListener("click",function(){
-//     updateCart();
-// })
+// start update cart btn
+let getUpdateCartBtn = document.querySelector(".cart_all_btn");
+getUpdateCartBtn.addEventListener("click",function(){
+    let getImgs = document.querySelectorAll(".cart_product_img");
+    let getProductNames = document.querySelectorAll(".cart_product_name");
+    let getProductPrices = document.querySelectorAll(".cart_product_price");
+    let getProductQuentitys = document.querySelectorAll(".cart_product_quantity");
+
+
+    for(let i = 0 ; i < getImgs.length ; i++ ){
+        let getImgUrl = getImgs[i].style.backgroundImage;
+        let getProductId = getImgs[i].id;
+        let getImgFile = urlFilter(getImgUrl);
+        let getProductName = getProductNames[i].innerText;
+        let getProductPrice = getProductPrices[i].innerText;
+        let getProductQuentity = getProductQuentitys[i].value;
+        
+        let stroeCartObj = {
+            id : getProductId,
+            img : getImgFile,
+            name : getProductName,
+            price : getProductPrice,
+            quantity : getProductQuentity
+        }
+        getCartStores.push(stroeCartObj);
+        // console.log(stroeCartObj);
+    }
+
+    localStorage.setItem("ogani_cart_product",JSON.stringify(getCartStores));
+    localStorage.removeItem("ogani_fav_product");
+    document.querySelector(".fav_table_body").innerHTML = " ";
+})
+
 // end update cart btn
 
 // start update cart function
@@ -239,57 +310,21 @@ function updateCart(){
         totalAmount += getamount; 
         
     })
-    getTotalShow.innerText = `$ ${totalAmount}.00`;
-    document.querySelector(".card_sub_total").innerText= `$ ${totalAmount}.00`;
-    document.querySelector(".card_total").innerText= `$ ${totalAmount}.00`;
+    // getTotalShow.innerText = `$ ${totalAmount}.00`;
+    // document.querySelector(".card_sub_total").innerText= `$ ${totalAmount}.00`;
+    // document.querySelector(".card_total").innerText= `$ ${totalAmount}.00`;
     
 
-    updateStorage("ogani_cart_product");
+    updateStorage("ogani_fav_product");
 
     return totalAmount;
 }
 
 // end update cart function
-function localStoreTotal(){
-    let totalAmount = 0 ;
-    getCartProducts.forEach(function(getCartProduct){
-
-        // let getProductId = getCartProduct.id;
-        // let getProductName = getCartProduct.name;
-        let getProductPrice = Number(getCartProduct.price);
-        let getProductQuantity = Number(getCartProduct.quantity);
-    
-        // console.log(typeof(getProductPrice,getProductQuantity));
-    
-        let result  = Number(getProductQuantity * getProductPrice) ;
-    
-        totalAmount += result;
-    })
-    
-    getTotalShow.innerText = `$ ${totalAmount}.00`;
-    document.querySelector(".card_sub_total").innerText= `$ ${totalAmount}.00`;
-    document.querySelector(".card_total").innerText= `$ ${totalAmount}.00`;
-}
-localStoreTotal();
 
 
-// start insert Coupon
-document.querySelector("#get_coupon").addEventListener("click",function(){
-    let getCouponCode = document.querySelector("#dis_code").value;
 
-    if(getCouponCode){
-        localStorage.setItem("ogani_coupon",getCouponCode);
-        let getTotalAmount = updateCart();
-        // console.log(getTotalAmount);
-        let getDisPer = 10;
-        let getDisPrice = getTotalAmount - (getTotalAmount/100*getDisPer);
 
-        document.querySelector(".card_sub_total").innerText= `$ ${getTotalAmount}.00 - ${getDisPer} % `
-        document.querySelector(".card_total").innerText = `$ ${getDisPrice}.00`;
-    }
-    
-})
-// end insert Coupon
 
 // start url filter function
 function urlFilter(url){
