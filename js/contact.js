@@ -114,4 +114,20 @@ function showLocalCount(showicons,localArr,localName){
 showLocalCount(getTotalFavIcons,getFavProducts,"ogani_fav_product");
 showLocalCount(getTotalCartIcons,getCartProducts,"ogani_cart_product");
 
+let totalItems = 0 ;
+getCartProducts.forEach(function(getCartProduct){
+    // console.log(getCartProduct.price)
+    let getTotal = +getCartProduct.price * +getCartProduct.quantity;
+
+    totalItems += getTotal;
+})
+
+// console.log(totalItems);
+
+let showTotalItems = document.querySelectorAll(".total_items");
+showTotalItems.forEach(function(showTotalItem){
+    showTotalItem.innerHTML = " ";
+    showTotalItem.innerText = `$ ${totalItems}.00`;
+})
+
 // end product store
