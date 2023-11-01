@@ -19,61 +19,7 @@ $(document).ready(function(){
     })
     // end dep list
 
-    // start produst slide section
-    $("#p_type_slide").owlCarousel({
-        items : 4 ,
-        loop : true,
-        autoplay : true,
-        autoplayHoverPause : true,
-        autoplayTimeout : 4000,
-        autoplaySpeed : 1000,
-        dots : false,
-        nav : true,
-        responsive :{
-            0 : {
-                items : 1 
-            },
-            443 :{
-                items : 2,
-            },
-            768 : {
-                items : 3
-            },
-            992 : {
-                items : 4 ,
-            }
-        }
-    });
-    // end product slide section
 
-    // start feature product section
-    $(".feature_p_tabs_container ul li").click(function(){
-        // console.log($(this).data("feature-type"));
-        $(this).siblings().removeClass("active");
-        $(this).addClass("active");
-        let getFeatureType = $(this).data("feature-type");
-        // console.log(getFeatureType);
-        if(getFeatureType === "all"){
-            $(".product_show_case").show("slow");
-        }else {
-            $(".product_show_case").hide("slow");
-            $(".product_show_case").filter("."+getFeatureType).show("slow");
-        }
-    })
-    // end feature product section
-
-    // start product choise section
-    $(".product_choise").owlCarousel({
-        items:1,
-        dots : false,
-        nav : true,
-        loop : true,
-        autoplay : true,
-        autoplayHoverPause : true,
-        autoplayTimeout : 4000,
-        autoplaySpeed : 1000,
-    })
-    // end product choise section
 })
 
 

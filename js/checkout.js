@@ -19,6 +19,12 @@ $(document).ready(function(){
     })
     // end dep list
 
+    // start close model box
+    $("#model_close_btn").click(function(){
+        $(".modal_box").removeClass("active");
+    })
+    // start close model box
+
 
 
 })
@@ -160,8 +166,9 @@ let getAcceptPaySlipBox = document.querySelector("#payment_confirm");
 
 let getSubmitBtn = document.querySelector(".order_submit_btn");
 
-// console.log(getAcceptPaySlipBox);
+let getModelBox = document.querySelector(".modal_box");
 
+// console.log(getAcceptPaySlipBox);
 
 getAcceptPaySlipBox.addEventListener("change",function(){
 
@@ -178,7 +185,15 @@ getAcceptPaySlipBox.addEventListener("change",function(){
 
 getSubmitBtn.addEventListener("click",function(e){
     e.preventDefault();
-    localStorage.removeItem("ogani_cart_product");
-    document.querySelector(".order_submit_form").submit();
+    getModelBox.classList.add("active");
+    
+    setTimeout(function(){
+        getModelBox.classList.remove("active");
+        document.querySelector(".order_submit_form").submit();
+        localStorage.removeItem("ogani_cart_product");
+    },5000)
+    
 })
+
+
 // end payment system
