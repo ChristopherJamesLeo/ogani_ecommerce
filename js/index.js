@@ -118,7 +118,7 @@ function productStore(getIcons,localName,showIcons){
                 let getImg = dropCloseCote;
                 let productId = this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].id;
                 let productName = this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].innerText;
-                let productPrice = this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[1].innerText;
+                let productPrice = this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[1].innerText.replace("$","");
                 
         
                 let storeProductObj = {
@@ -186,4 +186,4 @@ showTotalItems.forEach(function(showTotalItem){
     showTotalItem.innerHTML = " ";
     showTotalItem.innerText = `$ ${totalItems}.00`;
 })
-// end product store
+// end product stor
