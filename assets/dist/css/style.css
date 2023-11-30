@@ -153,7 +153,7 @@ header .shop_cout span{
 
 .banner_content_container {
     padding: 100px 80px;
-    background-image: url("./../assets/imgs/banners/banner.jpg.webp");
+    background-image: url("./../../imgs/banners/banner.jpg.webp");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -408,7 +408,7 @@ header .shop_cout span{
 
 /* start sub banner section */
 .sub_banner_container {
-    background-image: url("./../assets/imgs/banners/breadcrumb.jpg.webp");
+    background-image: url("./../../imgs/banners/breadcrumb.jpg.webp");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
