@@ -63,16 +63,16 @@ showLocalCount(getTotalCartIcons,getCartProducts,"ogani_cart_product");
 
 let totalItems = 0 ;
 
-if(!getCartProducts === null){
-    getCartProducts.forEach(function(getCartProduct){
-        // console.log(getCartProduct.price)
-        let getTotal = +getCartProduct.price * +getCartProduct.quantity;
-    
-        totalItems += getTotal
-    })
-}
+// if(!getCartProducts === null){
 
+// }
 
+getCartProducts.forEach(function(getCartProduct){
+    // console.log(getCartProduct.price)
+    let getTotal = +getCartProduct.price * +getCartProduct.quantity;
+
+    totalItems += getTotal
+})
 // console.log(totalItems);
 
 let showTotalItems = document.querySelectorAll(".total_items");
@@ -91,56 +91,57 @@ let getCartStores = JSON.parse(localStorage.getItem("ogani_cart_product"));
 // console.log(getCartStores);
 
 
-if(!getCartStores === null){
-    getCartStores.forEach(function(getCartStore){
-        let getTrTag = `<tr class="product_datas">
-        <td class="product_img_data">
-            <div class=" d-flex align-items-center">
-                <div class="me-5 product_img cart_product_img" id="${getCartStore.id}" style="background-image: url('./assets/imgs/products/${getCartStore.img}');"></div>
-                <span class="product_name cart_product_name">${getCartStore.name}</span>
-            </div>
-        </td>
-        <td class=" ">
-            <div class=" d-flex justify-content-center align-items-center product_infos ">
-                <span class="fw-bold ">$<span class="product_price cart_product_price">${getCartStore.price.replace("$","")}</span></span>
+// if(!getCartStores === null){
+
+// }
+
+getCartStores.forEach(function(getCartStore){
+    let getTrTag = `<tr class="product_datas">
+    <td class="product_img_data">
+        <div class=" d-flex align-items-center">
+            <div class="me-5 product_img cart_product_img" id="${getCartStore.id}" style="background-image: url('./assets/imgs/products/${getCartStore.img}');"></div>
+            <span class="product_name cart_product_name">${getCartStore.name}</span>
+        </div>
+    </td>
+    <td class=" ">
+        <div class=" d-flex justify-content-center align-items-center product_infos ">
+            <span class="fw-bold ">$<span class="product_price cart_product_price">${getCartStore.price.replace("$","")}</span></span>
+        </div>
+        
+    </td>
+    <td>
+        <div class="d-flex justify-content-center align-items-center gap-2 product_infos">
+            <div class="product_count_btn">
+                <button type="button" class="dec_qty_btn border-0 shadow-none outline-none rounded-0">
+                    <i class="fas fa-minus"></i>
+                </button>
+
+                <input type="text" name="p_quenty" id="p_quenty" value="${getCartStore.quantity}" class="text-center border-0 shadow-none outline-none rounded-0 p_quenty cart_product_quantity">
+
+                <button type="button" class="inc_qty_btn border-0 shadow-none outline-none rounded-0">
+                    <i class="fas fa-plus"></i>
+                </button>
             </div>
             
-        </td>
-        <td>
-            <div class="d-flex justify-content-center align-items-center gap-2 product_infos">
-                <div class="product_count_btn">
-                    <button type="button" class="dec_qty_btn border-0 shadow-none outline-none rounded-0">
-                        <i class="fas fa-minus"></i>
-                    </button>
-    
-                    <input type="text" name="p_quenty" id="p_quenty" value="${getCartStore.quantity}" class="text-center border-0 shadow-none outline-none rounded-0 p_quenty cart_product_quantity">
-    
-                    <button type="button" class="inc_qty_btn border-0 shadow-none outline-none rounded-0">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-                
-            </div>
-        </td>
-        <td>
-            <div class="d-flex justify-content-center align-items-center product_infos">
-                $<span class="total_amount">${getCartStore.price.replace("$","")}</span>
-            </div>
-        </td>
-        <td >
-            <div class="d-flex justify-content-center align-items-center product_infos">
-                <a href="javascript:void(0)" class="nav-link cart_delete_btn"><i class="fas fa-times"></i></a>
-            </div>
-        </td>
-    </tr>`;
-    // console.log(getTrTag);
-    
-        document.querySelector(".cart_table_body").innerHTML += getTrTag;
-    
-    
-    })
-}
+        </div>
+    </td>
+    <td>
+        <div class="d-flex justify-content-center align-items-center product_infos">
+            $<span class="total_amount">${getCartStore.price.replace("$","")}</span>
+        </div>
+    </td>
+    <td >
+        <div class="d-flex justify-content-center align-items-center product_infos">
+            <a href="javascript:void(0)" class="nav-link cart_delete_btn"><i class="fas fa-times"></i></a>
+        </div>
+    </td>
+</tr>`;
+// console.log(getTrTag);
 
+    document.querySelector(".cart_table_body").innerHTML += getTrTag;
+
+
+})
 
 // end cart product show
 
@@ -272,22 +273,20 @@ function updateCart(){
 // end update cart function
 function localStoreTotal(){
     let totalAmount = 0 ;
-    if(!getCartProducts === null){
-        getCartProducts.forEach(function(getCartProduct){
 
-            // let getProductId = getCartProduct.id;
-            // let getProductName = getCartProduct.name;
-            let getProductPrice = Number(getCartProduct.price);
-            let getProductQuantity = Number(getCartProduct.quantity);
-        
-            // console.log(typeof(getProductPrice,getProductQuantity));
-        
-            let result  = Number(getProductQuantity * getProductPrice) ;
-        
-            totalAmount += result;
-        })
-    }
+    getCartProducts.forEach(function(getCartProduct){
 
+        // let getProductId = getCartProduct.id;
+        // let getProductName = getCartProduct.name;
+        let getProductPrice = Number(getCartProduct.price);
+        let getProductQuantity = Number(getCartProduct.quantity);
+    
+        // console.log(typeof(getProductPrice,getProductQuantity));
+    
+        let result  = Number(getProductQuantity * getProductPrice) ;
+    
+        totalAmount += result;
+    })
     
     getTotalShow.innerText = `$ ${totalAmount}.00`;
     document.querySelector(".card_sub_total").innerText= `$ ${totalAmount}.00`;
